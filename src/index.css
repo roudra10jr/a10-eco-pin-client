@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
+
+@import "tailwindcss";
+@plugin "daisyui" {
+	themes: light --default;
+}
+
+* {
+	font-family: "Source Sans 3", sans-serif;
+}
+
+/* 5a8418  --primary-color */
+/* fece00 --secondary-color */
+/* font-graffiti */
+/* color-base-200: f3f3f3;
+color-base-300: e7e7e7;
+color-accent: 706f6f; */
+
+@plugin "daisyui/theme" {
+	name: "light";
+	default: true;
+	--color-primary: #5a8418;
+	--color-secondary: #fece00;
+	--color-base-200: #f3f3f3;
+	--color-base-300: #e7e7e7;
+	--color-accent: #706f6f;
+}
