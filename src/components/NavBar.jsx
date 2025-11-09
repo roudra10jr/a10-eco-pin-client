@@ -81,11 +81,13 @@
 // export default NavBar;
 
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink, useLocation } from "react-router";
 import navLogo from "../assets/nav-logo.jpg";
 
 const NavBar = () => {
 	const [scrolled, setScrolled] = useState(false);
+	const location = useLocation();
+	const isHomePage = location.pathname === "/";
 
 	useEffect(() => {
 		const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -107,7 +109,7 @@ const NavBar = () => {
 	return (
 		<div
 			className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-				scrolled
+				scrolled || !isHomePage
 					? "bg-base-200 shadow-md text-black"
 					: "bg-transparent text-white"
 			}`}
@@ -118,7 +120,11 @@ const NavBar = () => {
 						<div
 							tabIndex={0}
 							role="button"
-							className="btn btn-ghost lg:hidden"
+							className={`btn btn-ghost lg:hidden ${
+								scrolled || !isHomePage
+									? "text-black"
+									: "text-white"
+							}`}
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +153,7 @@ const NavBar = () => {
 						<img
 							className="h-12 w-12 rounded-full"
 							src={navLogo}
-							alt=""
+							alt="EcoPin logo"
 						/>
 						<h1 className="text-primary font-bold tracking-wider text-4xl md:text-5xl drop-shadow-lg [text-shadow:2px_2px_0px_#000]">
 							EcoPin
@@ -157,14 +163,17 @@ const NavBar = () => {
 
 				<div className="navbar-end hidden lg:flex items-center">
 					<ul className="menu menu-horizontal px-1">{links}</ul>
-
 					<div>
-						<button className="btn mx-2 btn-primary text-white">
-							Login
-						</button>
-						<button className="btn btn-primary text-white">
-							Register
-						</button>
+						<Link to="/login">
+							<button className="btn mx-2 btn-primary text-white">
+								Login
+							</button>
+						</Link>
+						<Link to="">
+							<button className="btn btn-primary text-white">
+								Register
+							</button>
+						</Link>
 					</div>
 				</div>
 			</div>
