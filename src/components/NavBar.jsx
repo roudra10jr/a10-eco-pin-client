@@ -169,7 +169,7 @@ const NavBar = () => {
 								Login
 							</button>
 						</Link>
-						<Link to="">
+						<Link to="/register">
 							<button className="btn btn-primary text-white">
 								Register
 							</button>
