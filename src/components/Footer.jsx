@@ -151,7 +151,7 @@ const Footer = () => {
 				<div className="mt-2 md:mt-0 relative z-10">
 					<div className="absolute inset-0 bg-[#1e4912]/80 backdrop-blur-sm rounded-lg -z-10"></div>{" "}
 					{/* Subtle backdrop for lift */}
-					<h1 className="font-graffiti text-primary font-bold tracking-wider text-4xl md:text-5xl drop-shadow-2xl [text-shadow:0_0_10px_rgba(90,132,24,0.8),2px_2px_0px_#000,4px_4px_0px_rgba(30,73,18,0.5)] relative z-10 px-4 py-2">
+					<h1 className="font-graffiti text-primary font-bold tracking-wider text-4xl md:text-5xl drop-shadow-3xl [text-shadow:0_0_10px_rgba(90,132,24,0.8),2px_2px_0px_#000,4px_4px_0px_rgba(30,73,18,0.5)] relative z-15 px-4 py-2">
 						EcoPin
 					</h1>
 				</div>
