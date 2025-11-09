@@ -1,11 +1,62 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoEyeOff } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../Providers/AuthContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
 	const [show, setShow] = useState(false);
+
+	const navigate = useNavigate();
+
+	const location = useLocation();
+	// console.log(location);
+	const from = location.state || "/";
+
+	const {
+		user,
+		setUser,
+		signInWithGoogleFunc,
+		signInWithEmailAndPasswordFunc,
+		setLoading,
+	} = useContext(AuthContext);
+
+	const handleLogIn = (e) => {
+		e.preventDefault();
+		const email = e.target.email.value;
+		const password = e.target.password.value;
+
+		// console.log({ email, password });
+
+		signInWithEmailAndPasswordFunc(email, password)
+			.then((res) => {
+				setLoading(false);
+				setUser(res.user);
+				navigate(from);
+				toast.success("Successfully Logged in");
+			})
+			.catch((error) => {
+				toast.error(error.message);
+			});
+	};
+
+	// continue with google:
+	const handleGoogleSignFunc = () => {
+		signInWithGoogleFunc()
+			.then((res) => {
+				setLoading(false);
+				setUser(res.user);
+				console.log(res.user);
+
+				toast.success("Sign in Successfully");
+				navigate(from);
+			})
+			.catch((error) => {
+				toast.error(error.message);
+			});
+	};
 	return (
 		<div className="flex justify-center min-h-screen items-center">
 			<div className="card bg-base-300 w-full max-w-sm shrink-0 shadow-2xl py-7 rounded-xl">
@@ -13,7 +64,7 @@ const Login = () => {
 					Login in your account
 				</h2>
 				<div className="card-body">
-					<form className="fieldset">
+					<form onClick={handleLogIn} className="fieldset">
 						{/* email */}
 						<label className="label  text-gray-600 font-semibold">
 							Email
@@ -62,7 +113,10 @@ const Login = () => {
 					</form>
 					<div className="divider">OR</div>
 
-					<button className="btn btn-primary btn-outline px-2 w-full">
+					<button
+						onClick={handleGoogleSignFunc}
+						className="btn btn-primary btn-outline px-2 w-full"
+					>
 						<FcGoogle size={24} /> Continue with Google
 					</button>
 				</div>
