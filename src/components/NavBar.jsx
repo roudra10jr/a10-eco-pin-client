@@ -80,12 +80,17 @@
 
 // export default NavBar;
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import navLogo from "../assets/nav-logo.jpg";
+import { AuthContext } from "../Providers/AuthContext";
+import { ClockLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
+	const { user, loading, signOutFunc } = useContext(AuthContext);
 	const [scrolled, setScrolled] = useState(false);
+	const [showLogout, setShowLogout] = useState(false);
 	const location = useLocation();
 	const isHomePage = location.pathname === "/";
 
@@ -95,14 +100,29 @@ const NavBar = () => {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
+	const handleLogout = () => {
+		signOutFunc()
+			.then(() => {
+				toast.success("Successfully Logout");
+			})
+			.catch((e) => {
+				toast.error(e.message);
+			});
+	};
+
 	const links = (
 		<>
 			<li>
 				<NavLink to="/">Home</NavLink>
 			</li>
 			<li>
-				<NavLink to="">All Issues</NavLink>
+				<NavLink to="/all-issues">All Issues</NavLink>
 			</li>
+			{user && (
+				<li>
+					<NavLink to="/add-issues">Add Issue</NavLink>
+				</li>
+			)}
 		</>
 	);
 
@@ -115,7 +135,9 @@ const NavBar = () => {
 			}`}
 		>
 			<div className="w-11/12 mx-auto flex flex-col md:flex-row justify-between items-center py-3 px-3">
+				{/* Left Section */}
 				<div className="navbar-start">
+					{/* Mobile Menu */}
 					<div className="dropdown">
 						<div
 							tabIndex={0}
@@ -149,6 +171,7 @@ const NavBar = () => {
 						</ul>
 					</div>
 
+					{/* Logo */}
 					<div className="flex gap-3 items-center">
 						<img
 							className="h-12 w-12 rounded-full"
@@ -161,19 +184,60 @@ const NavBar = () => {
 					</div>
 				</div>
 
-				<div className="navbar-end hidden lg:flex items-center">
+				{/* Right Section */}
+				<div className="navbar-end hidden lg:flex items-center relative">
 					<ul className="menu menu-horizontal px-1">{links}</ul>
-					<div>
-						<Link to="/login">
-							<button className="btn mx-2 btn-primary text-white">
-								Login
-							</button>
-						</Link>
-						<Link to="/register">
-							<button className="btn btn-primary text-white">
-								Register
-							</button>
-						</Link>
+
+					{/* User Actions */}
+					<div className="flex justify-center items-center relative">
+						{loading ? (
+							<ClockLoader color="#5a8418" />
+						) : user ? (
+							<div className="relative">
+								{/* Avatar */}
+								<div onClick={() => setShowLogout(!showLogout)}>
+									<img
+										src={
+											user?.photoURL ||
+											"https://via.placeholder.com/88"
+										}
+										className="h-[40px] w-[40px] rounded-full border-2 border-primary cursor-pointer hover:scale-105 transition-transform duration-200"
+										alt={user?.displayName}
+									/>
+								</div>
+
+								{/* Dropdown Menu */}
+								{showLogout && (
+									<div className="absolute top-12 right-0 bg-base-100 border border-base-300 shadow-lg rounded-xl p-3 min-w-[160px] animate-fadeIn z-50">
+										<p className="text-sm font-semibold text-gray-700 mb-2 border-b pb-1">
+											{user?.displayName || "User"}
+										</p>
+										<p className="text-xs text-accent mb-3">
+											{user?.email}
+										</p>
+										<button
+											onClick={handleLogout}
+											className="btn btn-primary w-full rounded-xl"
+										>
+											Logout
+										</button>
+									</div>
+								)}
+							</div>
+						) : (
+							<div>
+								<Link to="/login">
+									<button className="btn mx-2 btn-primary text-white">
+										Login
+									</button>
+								</Link>
+								<Link to="/register">
+									<button className="btn btn-primary text-white">
+										Register
+									</button>
+								</Link>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
