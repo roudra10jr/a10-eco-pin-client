@@ -1,6 +1,67 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../Providers/AuthContext";
+import { data } from "react-router";
+import Swal from "sweetalert2";
 
 const AddIssue = () => {
+	const { user } = useContext(AuthContext);
+	const handleAddIssue = (e) => {
+		e.preventDefault();
+		const title = e.target.title.value;
+		const category = e.target.category.value;
+		const location = e.target.location.value;
+		const description = e.target.description.value;
+		const image = e.target.image.value;
+		const amount = e.target.amount.value;
+		const email = user?.email;
+		const date = new Date();
+
+		// console.log({
+		// 	title,
+		// 	category,
+		// 	location,
+		// 	description,
+		// 	image,
+		// 	amount,
+		// 	email,
+		// });
+
+		const newIssue = {
+			title,
+			category,
+			location,
+			description,
+			image,
+			amount,
+			email,
+			status: "ongoing",
+			date,
+		};
+
+		//console.log(newIssue);
+
+		fetch("http://localhost:3000/issues", {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(newIssue),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				//console.log("after saving post", data);
+				if (data.insertedId) {
+					e.target.reset();
+					Swal.fire({
+						position: "left-right",
+						icon: "success",
+						title: "The Issue has been saved",
+						showConfirmButton: false,
+						timer: 1500,
+					});
+				}
+			});
+	};
 	return (
 		<div className="min-h-screen flex justify-center items-center bg-base-200 py-10 px-4">
 			<div className="bg-white shadow-lg rounded-2xl w-full max-w-2xl p-8">
@@ -8,7 +69,7 @@ const AddIssue = () => {
 					Add a New Issue
 				</h2>
 
-				<form className="space-y-4">
+				<form onSubmit={handleAddIssue} className="space-y-4">
 					{/* Issue Title */}
 					<div>
 						<label className="block font-semibold mb-1 text-accent">
@@ -102,7 +163,7 @@ const AddIssue = () => {
 					</div>
 
 					{/* Status */}
-					<div>
+					{/* <div>
 						<label className="block font-semibold mb-1 text-accent">
 							Status
 						</label>
@@ -113,10 +174,10 @@ const AddIssue = () => {
 							readOnly
 							className="input input-bordered w-full bg-base-300 cursor-not-allowed"
 						/>
-					</div>
+					</div> */}
 
 					{/* Date */}
-					<div>
+					{/* <div>
 						<label className="block font-semibold mb-1 text-accent">
 							Date
 						</label>
@@ -127,7 +188,7 @@ const AddIssue = () => {
 							readOnly
 							className="input input-bordered w-full bg-base-300 cursor-not-allowed"
 						/>
-					</div>
+					</div> */}
 
 					{/* Email */}
 					<div>
@@ -137,7 +198,7 @@ const AddIssue = () => {
 						<input
 							type="email"
 							name="email"
-							value="" // পরে এখানে currentUser.email আসবে
+							value={user?.email}
 							readOnly
 							className="input input-bordered w-full bg-base-300 cursor-not-allowed"
 						/>

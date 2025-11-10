@@ -23,7 +23,7 @@ const IssueCard = ({ issue }) => {
 
 				<div className="pt-3">
 					<Link to={`/issues/${_id}`}>
-						<button className="btn btn-sm w-full bg-primary text-white hover:bg-green-700">
+						<button className="btn btn-sm w-full bg-primary text-white hover:bg-secondary">
 							See Details
 						</button>
 					</Link>

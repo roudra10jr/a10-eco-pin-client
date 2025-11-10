@@ -4,6 +4,7 @@ import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import AllIssues from "../components/AllIssues";
+import AddIssue from "../Pages/AddIssue";
 
 export const router = createBrowserRouter([
 	{
@@ -13,6 +14,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				index: true,
+				loader: () => fetch("http://localhost:3000/recent-issues"),
 				Component: Home,
 			},
 			{
@@ -27,6 +29,10 @@ export const router = createBrowserRouter([
 				path: "/all-issues",
 				loader: () => fetch("http://localhost:3000/issues"),
 				Component: AllIssues,
+			},
+			{
+				path: "/add-issue",
+				Component: AddIssue,
 			},
 		],
 	},

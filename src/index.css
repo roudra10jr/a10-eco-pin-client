@@ -25,3 +25,7 @@ color-accent: 706f6f; */
 	--color-base-300: #e7e7e7;
 	--color-accent: #706f6f;
 }
+
+a.active {
+	@apply font-semibold border-b-4 border-secondary;
+}

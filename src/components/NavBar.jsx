@@ -120,7 +120,7 @@ const NavBar = () => {
 			</li>
 			{user && (
 				<li>
-					<NavLink to="/add-issues">Add Issue</NavLink>
+					<NavLink to="/add-issue">Add Issue</NavLink>
 				</li>
 			)}
 		</>
@@ -168,6 +168,47 @@ const NavBar = () => {
 							className="menu menu-sm dropdown-content bg-base-100 text-black font-semibold rounded-box z-[1] mt-3 w-52 p-2 shadow"
 						>
 							{links}
+
+							{user && (
+								<li className="mt-3 border-t pt-3 flex flex-col items-center">
+									<div className="relative">
+										{/* Avatar */}
+										<div
+											onClick={() =>
+												setShowLogout(!showLogout)
+											}
+										>
+											<img
+												src={
+													user?.photoURL ||
+													"https://via.placeholder.com/88"
+												}
+												className="h-[40px] w-[40px] rounded-full border-2 border-primary cursor-pointer hover:scale-105 transition-transform duration-200"
+												alt={user?.displayName}
+											/>
+										</div>
+
+										{/* Dropdown Menu */}
+										{showLogout && (
+											<div className="absolute top-12 right-0 bg-base-100 border border-base-300 shadow-lg rounded-xl p-3 min-w-[160px] animate-fadeIn z-50">
+												<p className="text-sm font-semibold text-gray-700 mb-2 border-b pb-1">
+													{user?.displayName ||
+														"User"}
+												</p>
+												<p className="text-xs text-accent mb-3">
+													{user?.email}
+												</p>
+												<button
+													onClick={handleLogout}
+													className="btn btn-primary w-full rounded-xl"
+												>
+													Logout
+												</button>
+											</div>
+										)}
+									</div>
+								</li>
+							)}
 						</ul>
 					</div>
 

@@ -6,10 +6,10 @@ const AllIssues = () => {
 	const issues = useLoaderData();
 
 	return (
-		<div className="max-w-11/12 mx-auto my-10">
-			<h2 className="text-3xl font-bold text-center mb-8">
+		<div className="max-w-11/12 mx-auto mt-28 mb-10">
+			<p className="text-3xl font-bold text-center mb-8">
 				All Reported Issues
-			</h2>
+			</p>
 
 			<div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 				{issues.map((issue) => (
