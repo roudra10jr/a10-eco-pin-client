@@ -5,6 +5,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import AllIssues from "../components/AllIssues";
 import AddIssue from "../Pages/AddIssue";
+import IssueDetails from "../Pages/IssueDetails";
 
 export const router = createBrowserRouter([
 	{
@@ -33,6 +34,12 @@ export const router = createBrowserRouter([
 			{
 				path: "/add-issue",
 				Component: AddIssue,
+			},
+			{
+				path: "/issues/:id",
+				loader: ({ params }) =>
+					fetch(`http://localhost:3000/issues/${params.id}`),
+				Component: IssueDetails,
 			},
 		],
 	},
