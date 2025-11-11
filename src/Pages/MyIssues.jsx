@@ -77,6 +77,48 @@ const MyIssues = () => {
 				}
 			});
 	};
+
+	const handleDeleteIssue = (id) => {
+		Swal.fire({
+			title: "Are you sure to delete?",
+			text: "You won't be able to revert this!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#5a8418",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				fetch(`http://localhost:3000/issues/${id}`, {
+					method: "DELETE",
+				})
+					.then((res) => res.json())
+					.then((data) => {
+						if (data.deletedCount) {
+							Swal.fire({
+								position: "center",
+								icon: "success",
+								title: "The issue has been deleted",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+
+							const remainingIssues = issues.filter(
+								(issue) => issue._id !== id
+							);
+							setIssues(remainingIssues);
+						}
+					});
+
+				// Swal.fire({
+				// 	title: "Deleted!",
+				// 	text: "Your file has been deleted.",
+				// 	icon: "success",
+				// });
+			}
+		});
+	};
+
 	return (
 		<div className="max-w-11/12 mx-auto">
 			<h3 className="text-center text-3xl font-bold text-accent mt-25">
@@ -119,7 +161,12 @@ const MyIssues = () => {
 											>
 												Update
 											</button>
-											<button className="btn btn-warning">
+											<button
+												onClick={() =>
+													handleDeleteIssue(issue._id)
+												}
+												className="btn btn-warning"
+											>
 												Delete
 											</button>
 
