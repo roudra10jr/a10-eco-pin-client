@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const IssueDetails = () => {
 	const { user } = useContext(AuthContext);
 	const issue = useLoaderData();
-	const { _id } = issue;
+	const { _id, title, category } = issue;
 	//console.log(issueId);
 
 	const [contributions, setContributions] = useState([]);
@@ -43,6 +43,8 @@ const IssueDetails = () => {
 
 		const newContribute = {
 			issueId,
+			title,
+			category,
 			amount,
 			photoURL: user?.photoURL,
 			name,
@@ -345,7 +347,7 @@ const IssueDetails = () => {
 											</div>
 										</td>
 										<td>{contribution?.name}</td>
-										<td>{contribution?.amount}</td>
+										<td>${contribution?.amount}</td>
 										{/* <th>
 									<button className="btn btn-ghost btn-xs">
 										details
