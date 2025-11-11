@@ -53,7 +53,7 @@ const AddIssue = () => {
 				if (data.insertedId) {
 					e.target.reset();
 					Swal.fire({
-						position: "left-right",
+						position: "center",
 						icon: "success",
 						title: "The Issue has been saved",
 						showConfirmButton: false,

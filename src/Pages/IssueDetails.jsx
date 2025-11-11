@@ -1,13 +1,16 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../Providers/AuthContext";
 import { GrMoney } from "react-icons/gr";
+import Swal from "sweetalert2";
 
 const IssueDetails = () => {
 	const { user } = useContext(AuthContext);
 	const issue = useLoaderData();
 	const { _id } = issue;
 	//console.log(issueId);
+
+	const [contributions, setContributions] = useState([]);
 
 	const contributionModalref = useRef(null);
 
@@ -41,6 +44,7 @@ const IssueDetails = () => {
 		const newContribute = {
 			issueId,
 			amount,
+			photoURL: user?.photoURL,
 			name,
 			email,
 			phone,
@@ -58,12 +62,38 @@ const IssueDetails = () => {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				console.log("after contribution", data);
+				//console.log("after contribution", data);
+				if (data.insertedId) {
+					contributionModalref.current.close();
+					Swal.fire({
+						position: "center",
+						icon: "success",
+						title: "Thanks for your great contribution",
+						showConfirmButton: false,
+						timer: 1500,
+					});
+
+					// add the newbid at the state for the imadiate update UI:
+					newContribute._id = data.insertedId;
+					const newContributions = [...contributions, newContribute];
+					newContributions.sort((a, b) => b.amount - a.amount);
+					setContributions(newContributions);
+				}
 			});
 	};
 
+	//display the contribution for specific issueId:
+	useEffect(() => {
+		fetch(`http://localhost:3000/issue/contributions/${_id}`)
+			.then((res) => res.json())
+			.then((data) => {
+				console.log("list of of contribution for this issue", data);
+				setContributions(data);
+			});
+	}, [_id]);
+
 	return (
-		<div className="w-11/12 md:w-9/12 lg:w-7/12 mx-auto mt-28 mb-16">
+		<div className="max-w-11/12 mx-auto mt-28 mb-16">
 			{/* Issue Card */}
 			<div className="bg-base-200 shadow-lg rounded-2xl overflow-hidden">
 				{/* Image Section */}
@@ -256,7 +286,7 @@ const IssueDetails = () => {
 							<div className="modal-action">
 								<form method="dialog">
 									{/* if there is a button in form, it will close the modal */}
-									<button className="btn">Close</button>
+									<button className="btn">Cancel</button>
 								</form>
 							</div>
 						</div>
@@ -266,13 +296,67 @@ const IssueDetails = () => {
 
 			{/* Contribution Section Placeholder */}
 			<div className="mt-10 text-center">
-				{/* <h3 className="text-2xl font-bold text-primary mb-3">
-					Contributions
+				<h3 className="text-3xl font-bold text-accent mb-3">
+					Contributions added for this issue:{" "}
+					<span className="text-primary">{contributions.length}</span>
 				</h3>
-				<p className="text-gray-600">
-					No contributions added yet. Be the first to support this
-					issue!
-				</p> */}
+
+				{/* table */}
+
+				<div className="overflow-x-auto">
+					<table className="table">
+						{/* head */}
+						<thead>
+							<tr>
+								<th>SL No.</th>
+								<th>Contributor Image</th>
+								<th>Contributor Name</th>
+								<th>Contribution Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							{/* row 1 */}
+							{
+								//
+								contributions.map((contribution, index) => (
+									<tr>
+										<th>{index + 1}</th>
+										<td>
+											<div className="flex items-center gap-3">
+												<div className="avatar">
+													<div className="mask mask-squircle h-12 w-12">
+														<img
+															src={
+																contribution?.photoURL ||
+																"https://img.daisyui.com/images/profile/demo/2@94.webp"
+															}
+															alt="Avatar Tailwind CSS Component"
+														/>
+													</div>
+												</div>
+												{/* <div>
+													<div className="font-bold">
+														{contribution?.name}
+													</div>
+													<div className="text-sm opacity-50">
+														{contribution?.amount}
+													</div>
+												</div> */}
+											</div>
+										</td>
+										<td>{contribution?.name}</td>
+										<td>{contribution?.amount}</td>
+										{/* <th>
+									<button className="btn btn-ghost btn-xs">
+										details
+									</button>
+								</th> */}
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	);

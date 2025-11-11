@@ -119,9 +119,14 @@ const NavBar = () => {
 				<NavLink to="/all-issues">All Issues</NavLink>
 			</li>
 			{user && (
-				<li>
-					<NavLink to="/add-issue">Add Issue</NavLink>
-				</li>
+				<>
+					<li>
+						<NavLink to="/add-issue">Add Issue</NavLink>
+					</li>
+					<li>
+						<NavLink to="/my-issues">My Issues</NavLink>
+					</li>
+				</>
 			)}
 		</>
 	);
