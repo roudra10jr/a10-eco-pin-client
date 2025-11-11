@@ -3,6 +3,7 @@ import Slider from "../components/Slider";
 import CategorySection from "../components/CategorySection";
 import { useLoaderData } from "react-router";
 import IssueCard from "../components/IssueCard";
+import JoinCleanDrive from "../components/JoinCleanDrive";
 
 const Home = () => {
 	const issuesData = useLoaderData();
@@ -31,6 +32,11 @@ const Home = () => {
 			</div>
 
 			<CategorySection></CategorySection>
+
+			{/* part 3 */}
+
+			{/* part-4 */}
+			<JoinCleanDrive></JoinCleanDrive>
 		</div>
 	);
 };

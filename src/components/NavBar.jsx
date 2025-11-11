@@ -126,6 +126,11 @@ const NavBar = () => {
 					<li>
 						<NavLink to="/my-issues">My Issues</NavLink>
 					</li>
+					<li>
+						<NavLink to="/my-contributions">
+							My Contributions
+						</NavLink>
+					</li>
 				</>
 			)}
 		</>

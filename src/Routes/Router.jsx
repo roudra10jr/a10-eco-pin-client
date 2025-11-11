@@ -7,6 +7,7 @@ import AllIssues from "../components/AllIssues";
 import AddIssue from "../Pages/AddIssue";
 import IssueDetails from "../Pages/IssueDetails";
 import MyIssues from "../Pages/MyIssues";
+import MyContributions from "../Pages/MyContributions";
 
 export const router = createBrowserRouter([
 	{
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
 			{
 				path: "/my-issues",
 				Component: MyIssues,
+			},
+			{
+				path: "/my-contributions",
+				Component: MyContributions,
 			},
 		],
 	},
