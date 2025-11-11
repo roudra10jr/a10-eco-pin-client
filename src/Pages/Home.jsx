@@ -4,6 +4,7 @@ import CategorySection from "../components/CategorySection";
 import { useLoaderData } from "react-router";
 import IssueCard from "../components/IssueCard";
 import JoinCleanDrive from "../components/JoinCleanDrive";
+import CommunityStats from "../components/CommunityStats";
 
 const Home = () => {
 	const issuesData = useLoaderData();
@@ -34,6 +35,7 @@ const Home = () => {
 			<CategorySection></CategorySection>
 
 			{/* part 3 */}
+			<CommunityStats></CommunityStats>
 
 			{/* part-4 */}
 			<JoinCleanDrive></JoinCleanDrive>
