@@ -21,6 +21,50 @@ const Register = () => {
 
 	const navigate = useNavigate();
 
+	//method 1: register using firebase (not stored in mongoDB)
+
+	// const handleRegisterSubmit = (e) => {
+	// 	e.preventDefault();
+
+	// 	const displayName = e.target.name.value;
+	// 	const photoURL = e.target.photo.value;
+	// 	const email = e.target.email.value;
+	// 	const password = e.target.password.value;
+
+	// 	// console.log({ name, photoURL, email, password });
+
+	// 	const regex = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+
+	// 	if (!regex.test(password)) {
+	// 		toast.error(
+	// 			'"Password must contain at least one uppercase & lowercase letter, and be at least 6 characters long.'
+	// 		);
+	// 		return;
+	// 	}
+
+	// 	// create user:
+	// 	createUserWithEmailAndPasswordFunc(email, password)
+	// 		.then((res) => {
+	// 			updateProfileFunc(displayName, photoURL)
+	// 				.then(() => {
+	// 					signOutFunc().then(() => {
+	// 						toast.success("Successfully registered");
+	// 						console.log(res.user);
+	// 						setUser(null);
+	// 						navigate("/login");
+	// 					});
+	// 				})
+	// 				.catch((error) => {
+	// 					toast.error(error.message);
+	// 				});
+	// 		})
+	// 		.catch((error) => {
+	// 			toast.error(error.message);
+	// 		});
+	// };
+
+	// method 2: firebase + mongoDB;
+
 	const handleRegisterSubmit = (e) => {
 		e.preventDefault();
 
@@ -40,16 +84,37 @@ const Register = () => {
 			return;
 		}
 
+		//create new user for for store in mongoDB:
+		const newUser = {
+			displayName,
+			email,
+			photoURL,
+		};
+
 		// create user:
 		createUserWithEmailAndPasswordFunc(email, password)
 			.then((res) => {
 				updateProfileFunc(displayName, photoURL)
 					.then(() => {
 						signOutFunc().then(() => {
-							toast.success("Successfully registered");
-							console.log(res.user);
-							setUser(null);
-							navigate("/login");
+							// toast.success("Successfully registered");
+							// console.log(res.user);
+							// setUser(null);
+							// navigate("/login");
+							fetch("http://localhost:3000/users", {
+								method: "POST",
+								headers: {
+									"content-type": "application/json",
+								},
+								body: JSON.stringify(newUser),
+							})
+								.then((res) => res.json())
+								.then((data) => {
+									toast.success("Successfully registered");
+									//console.log(res.user);
+									setUser(null);
+									navigate("/login");
+								});
 						});
 					})
 					.catch((error) => {
@@ -61,15 +126,45 @@ const Register = () => {
 			});
 	};
 
-	// continue with google:
+	// continue with google:  (only firebase)
+	// const handleGoogleSignFunc = () => {
+	// 	signInWithGoogleFunc()
+	// 		.then((res) => {
+	// 			setLoading(false);
+	// 			setUser(res.user);
+	// 			console.log(res.user);
+	// 			toast.success("Sign in Successfully");
+	// 			navigate("/");
+	// 		})
+	// 		.catch((error) => {
+	// 			toast.error(error.message);
+	// 		});
+	// };
+
+	// store at mongodb:
 	const handleGoogleSignFunc = () => {
 		signInWithGoogleFunc()
 			.then((res) => {
-				setLoading(false);
-				setUser(res.user);
-				console.log(res.user);
-				toast.success("Sign in Successfully");
-				navigate("/");
+				const newUser = {
+					displayName: res.user.displayName,
+					email: res.user.email,
+					photoURL: res.user.photoURL,
+				};
+				fetch("http://localhost:3000/users", {
+					method: "POST",
+					headers: {
+						"content-type": "application/json",
+					},
+					body: JSON.stringify(newUser),
+				})
+					.then((res) => res.json())
+					.then((data) => {
+						setLoading(false);
+						//setUser(res.user);
+						//console.log(res.user);
+						toast.success("Sign in Successfully");
+						navigate("/");
+					});
 			})
 			.catch((error) => {
 				toast.error(error.message);

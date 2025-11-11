@@ -46,12 +46,32 @@ const Login = () => {
 	const handleGoogleSignFunc = () => {
 		signInWithGoogleFunc()
 			.then((res) => {
-				setLoading(false);
-				setUser(res.user);
-				console.log(res.user);
+				// setLoading(false);
+				// setUser(res.user);
+				// console.log(res.user);
 
-				toast.success("Sign in Successfully");
-				navigate(from);
+				// toast.success("Sign in Successfully");
+				// navigate(from);
+				const newUser = {
+					displayName: res.user.displayName,
+					email: res.user.email,
+					photoURL: res.user.photoURL,
+				};
+				fetch("http://localhost:3000/users", {
+					method: "POST",
+					headers: {
+						"content-type": "application/json",
+					},
+					body: JSON.stringify(newUser),
+				})
+					.then((res) => res.json())
+					.then((data) => {
+						setLoading(false);
+						//setUser(res.user);
+						//console.log(res.user);
+						toast.success("Sign in Successfully");
+						navigate(from);
+					});
 			})
 			.catch((error) => {
 				toast.error(error.message);
@@ -64,7 +84,7 @@ const Login = () => {
 					Login in your account
 				</h2>
 				<div className="card-body">
-					<form onClick={handleLogIn} className="fieldset">
+					<form onSubmit={handleLogIn} className="fieldset">
 						{/* email */}
 						<label className="label  text-gray-600 font-semibold">
 							Email
