@@ -58,7 +58,7 @@ const Login = () => {
 					email: res.user.email,
 					photoURL: res.user.photoURL,
 				};
-				fetch("http://localhost:3000/users", {
+				fetch("https://a10-eco-pin-server.vercel.app/users", {
 					method: "POST",
 					headers: {
 						"content-type": "application/json",

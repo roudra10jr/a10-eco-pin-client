@@ -10,7 +10,7 @@ const MyIssues = () => {
 
 	useEffect(() => {
 		if (user?.email) {
-			fetch(`http://localhost:3000/issues?email=${user.email}
+			fetch(`https://a10-eco-pin-server.vercel.app/issues?email=${user.email}
 `)
 				.then((res) => res.json())
 				.then((data) => {
@@ -44,7 +44,7 @@ const MyIssues = () => {
 			status,
 		};
 
-		fetch(`http://localhost:3000/issues/${selectId}`, {
+		fetch(`https://a10-eco-pin-server.vercel.app/issues/${selectId}`, {
 			method: "PATCH",
 			headers: {
 				"content-type": "application/json",
@@ -89,7 +89,7 @@ const MyIssues = () => {
 			confirmButtonText: "Yes, delete it!",
 		}).then((result) => {
 			if (result.isConfirmed) {
-				fetch(`http://localhost:3000/issues/${id}`, {
+				fetch(`https://a10-eco-pin-server.vercel.app/issues/${id}`, {
 					method: "DELETE",
 				})
 					.then((res) => res.json())

@@ -56,7 +56,7 @@ const IssueDetails = () => {
 			additionalInfo,
 		};
 
-		fetch("http://localhost:3000/contributions", {
+		fetch("https://a10-eco-pin-server.vercel.app/contributions", {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
@@ -87,7 +87,9 @@ const IssueDetails = () => {
 
 	//display the contribution for specific issueId:
 	useEffect(() => {
-		fetch(`http://localhost:3000/issue/contributions/${_id}`)
+		fetch(
+			`https://a10-eco-pin-server.vercel.app/issue/contributions/${_id}`
+		)
 			.then((res) => res.json())
 			.then((data) => {
 				console.log("list of of contribution for this issue", data);

@@ -102,13 +102,16 @@ const Register = () => {
 							// console.log(res.user);
 							// setUser(null);
 							// navigate("/login");
-							fetch("http://localhost:3000/users", {
-								method: "POST",
-								headers: {
-									"content-type": "application/json",
-								},
-								body: JSON.stringify(newUser),
-							})
+							fetch(
+								"https://a10-eco-pin-server.vercel.app/users",
+								{
+									method: "POST",
+									headers: {
+										"content-type": "application/json",
+									},
+									body: JSON.stringify(newUser),
+								}
+							)
 								.then((res) => res.json())
 								.then((data) => {
 									toast.success("Successfully registered");
@@ -151,7 +154,7 @@ const Register = () => {
 					email: res.user.email,
 					photoURL: res.user.photoURL,
 				};
-				fetch("http://localhost:3000/users", {
+				fetch("https://a10-eco-pin-server.vercel.app/users", {
 					method: "POST",
 					headers: {
 						"content-type": "application/json",

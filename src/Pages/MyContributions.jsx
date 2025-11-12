@@ -11,7 +11,9 @@ const MyContributions = () => {
 
 	useEffect(() => {
 		if (user?.email) {
-			fetch(`http://localhost:3000/contributions?email=${user?.email}`)
+			fetch(
+				`https://a10-eco-pin-server.vercel.app/contributions?email=${user?.email}`
+			)
 				.then((res) => res.json())
 				.then((data) => {
 					setContributions(data);

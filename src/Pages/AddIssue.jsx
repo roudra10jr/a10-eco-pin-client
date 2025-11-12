@@ -41,7 +41,7 @@ const AddIssue = () => {
 
 		//console.log(newIssue);
 
-		fetch("http://localhost:3000/issues", {
+		fetch("https://a10-eco-pin-server.vercel.app/issues", {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",

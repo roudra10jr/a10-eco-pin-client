@@ -18,7 +18,10 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				loader: () => fetch("http://localhost:3000/recent-issues"),
+				loader: () =>
+					fetch(
+						"https://a10-eco-pin-server.vercel.app/recent-issues"
+					),
 				Component: Home,
 			},
 			{
@@ -31,7 +34,8 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "/all-issues",
-				loader: () => fetch("http://localhost:3000/issues"),
+				loader: () =>
+					fetch("https://a10-eco-pin-server.vercel.app/issues"),
 				Component: AllIssues,
 			},
 			{
@@ -45,7 +49,9 @@ export const router = createBrowserRouter([
 			{
 				path: "/issues/:id",
 				loader: ({ params }) =>
-					fetch(`http://localhost:3000/issues/${params.id}`),
+					fetch(
+						`https://a10-eco-pin-server.vercel.app/issues/${params.id}`
+					),
 				element: (
 					<PrivateRoute>
 						<IssueDetails></IssueDetails>

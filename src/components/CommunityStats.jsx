@@ -10,7 +10,7 @@ const CommunityStats = () => {
 	const [stats, setStats] = useState(null);
 
 	useEffect(() => {
-		fetch("http://localhost:3000/community-stats")
+		fetch("https://a10-eco-pin-server.vercel.app/community-stats")
 			.then((res) => res.json())
 			.then((data) => {
 				//console.log('after getting',data);
