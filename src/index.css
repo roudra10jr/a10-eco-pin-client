@@ -2,20 +2,14 @@
 
 @import "tailwindcss";
 @plugin "daisyui" {
-	themes: light --default;
+	themes: light --default, dark;
 }
 
 * {
 	font-family: "Source Sans 3", sans-serif;
 }
 
-/* 5a8418  --primary-color */
-/* fece00 --secondary-color */
-/* font-graffiti */
-/* color-base-200: f3f3f3;
-color-base-300: e7e7e7;
-color-accent: 706f6f; */
-
+/* custom color references */
 @plugin "daisyui/theme" {
 	name: "light";
 	default: true;
@@ -26,6 +20,6 @@ color-accent: 706f6f; */
 	--color-accent: #706f6f;
 }
 
-a.active {
+/* a.active {
 	@apply font-semibold border-b-4 border-secondary;
-}
+} */

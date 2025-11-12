@@ -11,14 +11,14 @@ const IssueCard = ({ issue }) => {
 			<div className="p-4 space-y-2">
 				<h3 className="text-xl font-semibold text-primary">{title}</h3>
 				<p className="text-accent text-sm font-medium">
-					Category: <span className="text-black">{category}</span>
+					Category: <span className="text-accent">{category}</span>
 				</p>
 				<p className="text-accent text-sm font-medium">
-					Location: <span className="text-black">{location}</span>
+					Location: <span className="text-accent">{location}</span>
 				</p>
 				<p className="text-accent text-sm font-medium">
 					Estimated Cost:{" "}
-					<span className="font-semibold text-black">${amount}</span>
+					<span className="font-semibold text-accent">${amount}</span>
 				</p>
 
 				<div className="pt-3">
