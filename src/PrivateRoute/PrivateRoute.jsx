@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useLocation } from "react-router";
+import { Navigate, useLocation } from "react-router";
 import { AuthContext } from "../Providers/AuthContext";
 import LoadingBar from "../Pages/LoadingBar";
 

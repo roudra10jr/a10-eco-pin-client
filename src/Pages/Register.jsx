@@ -5,6 +5,7 @@ import { IoEyeOff } from "react-icons/io5";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Providers/AuthContext";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
 	const [show, setShow] = useState(false);
@@ -173,6 +174,9 @@ const Register = () => {
 
 	return (
 		<div className="flex justify-center min-h-screen items-center my-5">
+			<Helmet>
+				<title>Register | EcoPin</title>
+			</Helmet>
 			<div className="card bg-base-300 w-full max-w-sm shrink-0 shadow-2xl py-7 rounded-xl">
 				<h2 className="text-2xl font-semibold text-center">
 					Register your account

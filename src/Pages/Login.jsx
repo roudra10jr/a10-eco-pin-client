@@ -5,6 +5,7 @@ import { IoEyeOff } from "react-icons/io5";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Providers/AuthContext";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
 	const [show, setShow] = useState(false);
@@ -79,6 +80,9 @@ const Login = () => {
 	};
 	return (
 		<div className="flex justify-center min-h-screen items-center">
+			<Helmet>
+				<title>Login | EcoPin</title>
+			</Helmet>
 			<div className="card bg-base-300 w-full max-w-sm shrink-0 shadow-2xl py-7 rounded-xl">
 				<h2 className="text-2xl font-semibold text-center">
 					Login in your account

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../Providers/AuthContext";
 import { data } from "react-router";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AddIssue = () => {
 	const { user } = useContext(AuthContext);
@@ -64,6 +65,9 @@ const AddIssue = () => {
 	};
 	return (
 		<div className="min-h-screen flex justify-center items-center bg-base-200 py-10 px-4">
+			<Helmet>
+				<title>Add Issue | EcoPin</title>
+			</Helmet>
 			<div className="bg-white shadow-lg rounded-2xl w-full max-w-2xl p-8">
 				<h2 className="text-3xl font-bold text-center text-primary mb-6">
 					Add a New Issue

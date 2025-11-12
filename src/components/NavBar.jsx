@@ -593,20 +593,17 @@ const NavBar = () => {
 	const isHomePage = location.pathname === "/";
 	const dropdownRef = useRef(null);
 
-	// Scroll behavior
 	useEffect(() => {
 		const handleScroll = () => setScrolled(window.scrollY > 50);
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	// Apply theme to <html>
 	useEffect(() => {
 		document.querySelector("html").setAttribute("data-theme", theme);
 		localStorage.setItem("theme", theme);
 	}, [theme]);
 
-	// Close logout dropdown when clicked outside
 	useEffect(() => {
 		const onDocClick = (e) => {
 			if (
@@ -629,7 +626,6 @@ const NavBar = () => {
 			.catch((e) => toast.error(e.message));
 	};
 
-	// ✅ Active NavLink highlight color fixed
 	const navlinkClass = ({ isActive }) =>
 		`px-3 py-1 rounded transition-colors ${
 			isActive
@@ -749,13 +745,11 @@ const NavBar = () => {
 					</h1>
 				</div>
 
-				{/* Right Section */}
 				<div className="navbar-end flex items-center gap-3">
 					<ul className="menu menu-horizontal px-1 hidden lg:flex">
 						{links}
 					</ul>
 
-					{/* Theme toggle (desktop) */}
 					<label className="swap swap-rotate cursor-pointer mx-2 hidden lg:inline-flex">
 						<input
 							type="checkbox"
@@ -766,7 +760,6 @@ const NavBar = () => {
 						<FaMoon className="swap-off fill-current text-gray-400 text-2xl" />
 					</label>
 
-					{/* Avatar + Logout (desktop only) */}
 					<div ref={dropdownRef} className="flex items-center">
 						{loading ? (
 							<ClockLoader color="#5a8418" />

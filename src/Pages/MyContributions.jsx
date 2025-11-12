@@ -3,6 +3,7 @@ import { AuthContext } from "../Providers/AuthContext";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { saveAs } from "file-saver";
+import { Helmet } from "react-helmet-async";
 
 const MyContributions = () => {
 	const { user } = useContext(AuthContext);
@@ -67,6 +68,9 @@ const MyContributions = () => {
 
 	return (
 		<div className="max-w-11/12 mx-auto">
+			<Helmet>
+				<title>My contributions | EcoPin</title>
+			</Helmet>
 			<h3 className="text-center text-3xl font-bold text-accent mt-25">
 				My Issues:{" "}
 				<span className="text-primary">{contributions.length}</span>

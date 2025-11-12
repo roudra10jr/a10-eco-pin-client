@@ -5,6 +5,7 @@ import { useLoaderData } from "react-router";
 import IssueCard from "../components/IssueCard";
 import JoinCleanDrive from "../components/JoinCleanDrive";
 import CommunityStats from "../components/CommunityStats";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
 	const issuesData = useLoaderData();
@@ -12,6 +13,10 @@ const Home = () => {
 
 	return (
 		<div>
+			<Helmet>
+				<title>Home | EcoPin</title>
+			</Helmet>
+
 			<Slider></Slider>
 
 			{/* recent issue */}

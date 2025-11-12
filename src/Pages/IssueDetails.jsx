@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router";
 import { AuthContext } from "../Providers/AuthContext";
 import { GrMoney } from "react-icons/gr";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const IssueDetails = () => {
 	const { user } = useContext(AuthContext);
@@ -96,6 +97,9 @@ const IssueDetails = () => {
 
 	return (
 		<div className="max-w-11/12 mx-auto mt-28 mb-16">
+			<Helmet>
+				<title>Issue details | EcoPin</title>
+			</Helmet>
 			{/* Issue Card */}
 			<div className="bg-base-200 shadow-lg rounded-2xl overflow-hidden">
 				{/* Image Section */}
