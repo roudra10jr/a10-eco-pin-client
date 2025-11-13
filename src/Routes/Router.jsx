@@ -9,6 +9,7 @@ import IssueDetails from "../Pages/IssueDetails";
 import MyIssues from "../Pages/MyIssues";
 import MyContributions from "../Pages/MyContributions";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import ErrorPage from "../Pages/Errorpage";
 
 export const router = createBrowserRouter([
 	{
@@ -76,5 +77,9 @@ export const router = createBrowserRouter([
 				),
 			},
 		],
+	},
+	{
+		path: "*",
+		Component: ErrorPage,
 	},
 ]);
